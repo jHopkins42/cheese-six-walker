@@ -1,38 +1,64 @@
-// import important parts of sequelize library
-const { Model, DataTypes } = require('sequelize');
-// import our database connection from config.js
-const sequelize = require('../config/connection');
+// import important parts of mongoose library
+const { Schema, Model, Types } = require('mongoose');
+const dateFormat = require("../utils/dates");
 
-// Initialize Product model (table) by extending off Sequelize's Model class
-class Product extends Model {}
-
-// set up fields and rules for Product model
-Product.init(
+const ReactionSchema = new Schema(
   {
-    // define columns
-    product_name: {
-      type: DataTypes.STRING
+    reactionId: {
+      // Mongoose's ObjectId data type
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
     },
-    price: {
-      type: DataTypes.INTEGER
+
+    reactionBody: {
+      type: String,
+      required: true,
+      maxlength: 280,
     },
-        stock: {
-      type: DataTypes.INTEGER
-    }, 
-    category_id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: false
+
+    username: {
+      type: String,
+      required: true,
+    },
+
+    createdAt: {
+      type: Date,
+      // Set default time to current time for timestamp
+      default: Date.now,
+      // timestamp on query
+      get: (timestamp) => dateFormat(timestamp),
     },
   },
-  {
-    sequelize,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'product',
-  }
 );
 
-module.exports = Product;
->
+const ThoughtSchema = new Schema(
+  {
+    thoughtText: {
+      type: String,
+      required: "Thought is Required",
+      minlength: 1,
+      maxlength: 280,
+    },
+
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      // format the timestamp on query
+      get: (timestamp) => dateFormat(timestamp),
+    },
+
+    username: {
+      type: String,
+      required: true,
+    },
+    reactions: [ReactionSchema],
+  },
+);
+
+ThoughtSchema.virtual("reactionCount").get(function () {
+  return this.reactions.length;
+});
+
+const Thought = model("Thought", ThoughtSchema);
+
+module.exports = Thought;

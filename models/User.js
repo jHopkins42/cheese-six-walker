@@ -1,38 +1,35 @@
-// import important parts of sequelize library
-const { Model, DataTypes } = require('sequelize');
-// import our database connection from config.js
-const sequelize = require('../config/connection');
+// import important parts of mongoose  library
+const { Model, Schema } = require('mongoose');
 
-// Initialize Product model (table) by extending off Sequelize's Model class
-class Product extends Model {}
-
-// set up fields and rules for Product model
-Product.init(
+//new database
+const UserSchema = new Schema(
   {
-    // define columns
-    product_name: {
-      type: DataTypes.STRING
+    username: {
+      type: String,
+      unique: true,
+      required: "Please enter a valid Username",
+
     },
-    price: {
-      type: DataTypes.INTEGER
+    email: {
+      type: String,
+      unique: true,
+      match: [/.+@.+\..+/],
+      required: "Please enter a valid email",
     },
-        stock: {
-      type: DataTypes.INTEGER
-    }, 
-    category_id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: false
-    },
+    thoughts: [
+{
+  type: Schema.Types.ObjectId,
+  ref: "Thought",
+},
+    ],
   },
-  {
-    sequelize,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'product',
-  }
-);
+)
 
-module.exports = Product;
->
+
+UserSchema.virtual("friendCount").get(function () {
+  return this.friends.length;
+});
+
+const User = model("User", UserSchema);
+
+module.exports = User;
