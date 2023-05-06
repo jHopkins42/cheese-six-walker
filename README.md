@@ -45,7 +45,7 @@ Not available at this time
 ### Links
 Main Repository: [(https://github.com/jHopkins42/cheese-six-walker)]
 .
-Deployed Page: not available at this time.
+Deployed Page: [(https://jhopkins42.github.io/cheese-six-walker/)]
 
 ### Video walkthrough
 not available at this time.
