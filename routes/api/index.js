@@ -1,11 +1,13 @@
 const router = require('express').Router();
-const categoryRoutes = require('./category-routes');
-const productRoutes = require('./product-routes');
-const tagRoutes = require('./tag-routes');
+const apiRoutes = require("./api");
 
-router.use('/categories', categoryRoutes);
-router.use('/products', productRoutes);
-router.use('/tags', tagRoutes);
+
+router.use('/api', apiRoutes);
+
+router.use((req, res) => {
+    res.status(404).send("<h1>Sorry, the cat does not approve of your 404 error.</h1><a href='./public/derp-9.webp'> <img src='/public/derp-9.webp' alt='cat in a box'></a>");
+});
+
 
 module.exports = router;
->
+
