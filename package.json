@@ -1,0 +1,28 @@
+{
+  "name": "cheese-six-walker",
+  "version": "1.0.0",
+  "description": "A social network API utilizing MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jHopkins42/cheese-six-walker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jHopkins42/cheese-six-walker/issues"
+  },
+  "homepage": "https://github.com/jHopkins42/cheese-six-walker#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "inquirer": "^9.2.1",
+    "mongod": "^2.0.0",
+    "mongoose": "^7.1.0",
+    "node": "^20.1.0"
+  }
+}
